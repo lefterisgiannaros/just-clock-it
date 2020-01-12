@@ -9,8 +9,13 @@ function useTimes(){
         firebase
             .firestore()
             .collection('Times')
-            .onSnapshot((snapshot) =>{
-                debugger
+            .onSnapshot((snapshot) =>{ debugger
+                // const newTimes = snapshot.docs.map((doc) =>({
+                //     id:doc.id,
+                //     ...doc.data()
+                // }))
+
+                // setTimes(newTimes)
             })
     }, [])
 
@@ -34,12 +39,14 @@ const TimesList = () =>{
                 </select>
             </div>
             <ol>
-                <li>
+                {times.map((time)=>
+                <li key={time.id}>
                     <div className="time-entry">
-                        My Entry Title
-                        <code className="time">18 seconds</code>
+                        {time.title}
+                        <code className="time">{time.time_seconds} seconds</code>
                     </div>
                 </li>
+                )}
             </ol>
         </div>
     )
